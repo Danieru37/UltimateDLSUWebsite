@@ -32,6 +32,8 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+
+
 .nav-item:hover{
   background-color: #575757;
 }
@@ -179,15 +181,6 @@ a.one:hover, a.one:active {
 
 }
 
-.triangle {
-  width: 0px;
-  height: 100px;
-  margin-left: 80%;
-  border-style: solid;
-  border-width: 0 400px 00px 400px;
-  border-color: transparent transparent #FF4532 transparent;
-}
-
 .container-accreditation{
   display: flex;
   display: -webkit-flex;
@@ -226,4 +219,25 @@ hr.dotted {
   margin-left: 2%;
   margin-right: 2%;
   border-top: 5px dotted #343434;
+}
+
+.profile {
+  margin: 10px;
+  padding: 2px;
+  max-height: 350px;
+  width:200px;
+}
+
+.body-frame {
+  flex: auto;
+}
+
+.body-frame-item{
+  height:100%;
+  width:100%;
+}
+
+.rotated-image {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
 }
