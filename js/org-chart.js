@@ -316,42 +316,22 @@ let facultyArr = [
   }
 ];
 
-  let tempArr = [];
+showAll(facultyArr);
 
-  show(facultyArr);
+function showAll(arr) {
+    document.getElementById("facultyPeeps").innerText = "";
 
-  function show(arr) {
-    document.getElementById("myCard").innerText = "";
-    
     for(var i=0;i<arr.length;i++){
-      document.getElementById("myCard").innerHTML += `
-        <div class="card">
-          <img src="${arr[i].img}" class = "img-front">
-          <div class="card-body">
-            <h5 class="card-title">${arr[i].name}</h5>   
-            <p class="card-text">${arr[i].title}<br>
-              ${arr[i].text}</p>
-          </div>
-        </div>
-      `
+        if(i==6||i==16||i==30||i==36){ continue; }
+        else{
+            document.getElementById("facultyPeeps").innerHTML += `
+            <div class="profile">
+                <figure>
+                    <img src = "${arr[i].img}" width="200" height="200" style="border-radius: 3px; border: 3px solid black;">
+                    <figcaption style = "line-height: 30px; font-family: 'Montserrat';"><b> ${arr[i].name} </b><br>${arr[i].title}</figcaption>
+                </figure>
+            </div>
+          `
+        }
     }
-
-    document.getElementById("inputFaculty").addEventListener("keyup",function(){
-      var searchInput = document.getElementById("inputFaculty").value;
-      tempArr = facultyArr.filter(function(a){
-        if(a.name.toLowerCase().includes(searchInput.toLowerCase())){
-          return a.name;
-        }
-      });
-
-      if(this.value == ""){
-        show(facultyArr);
-      } else {
-        if(tempArr == ""){
-          document.getElementById("myCard").innerHTML = "";
-        } else {
-          show(tempArr);
-        }
-      }
-    });
-  }
+}
