@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body onload="load()">
+  
+  <div class = "container-fluid">
+    <h1> Curriculum Map </h1>
+    <h2 style = "font-size: 20px; margin-left: 20px;"> Table 2-1.4 Curriculum Map (Program Specific Courses)</h2>
+    
+    <nav aria-label="...">
+      <ul class="pagination pagination-lg" style = "margin-left: 50px; font-family: 'Montserrat';">
+        <li class="page-item"><a class="page-link" onclick= "showTable('CPE')" href="#" style = "color:#0f5401">B. S. in Computer Engineering</a></li>
+        <li class="page-item"><a class="page-link" onclick= "showTable('ECE')"href="#" style = "color:#0f5401"> B.S. in Electrical Engineering</a></li>
+        <li class="page-item"><a class="page-link" onclick= "showTable('Ge')"href="#" style = "color:#0f5401"> General Education Courses</a></li>
+      </ul>
+    </nav>
+    <div id="container-fluid-2" style="margin-left: 200px; font-family: 'Montserrat';"></div>
+  </div>
+  <style>
+    table {
+      font-family: 'Montserrat';
+      width: 80%;
+      margin: 10px auto;
+      border: 3px solid #636363;
+      background-color: #ffffff;
+    }
+    th, td {
+      border: 1px solid #003e0f;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #0f5401;
+      color: #ffffff;
+    }
+  </style>
+  <script>
+    function createTable(tableData)  {
+  if (typeof tableData !== 'string') {
+    throw new Error('Invalid input: tableData should be a string.');
+  }
+
+  const lines = tableData.trim().split('\n');
+
+  if (lines.length === 0) {
+    return document.createElement('table'); // Return an empty table for empty input
+  }
+
+  const table = document.createElement('table');
+
+  const createCell = (tag, text) => {
+    const cell = document.createElement(tag);
+    cell.textContent = text;
+    return cell;
+  };
+
+  const createRow = (rowData, isHeader) => {
+    const row = document.createElement('tr');
+    const cells = rowData.map((value) => createCell(isHeader ? 'th' : 'td', value.trim()));
+    cells.forEach((cell) => row.appendChild(cell));
+    return row;
+  };
+
+  const headerRowData = lines[0].split(';');
+  const headerRow = createRow(headerRowData, true);
+  table.appendChild(headerRow);
+
+  const dataRows = lines.slice(1);
+  const rows = dataRows.map((line) => createRow(line.split(';'), false));
+  rows.forEach((row) => table.appendChild(row));
+
+  return table;
+}
+
+    function showTable(course) {
+      let tableData;
+
+      if (course === 'ECE') {
+        tableData = `Course;Course Description;A;B;C;D;E;F;G;H;I;J;K;L;M
+        LBYEC2A;Computer Fundamentals and Programming 1;0;0;0;1;0;0;0;0;0;0;0;0;0
+        LBYEC2B;Computer Fundamentals and Programming 2;0;0;0;1;0;0;0;0;0;1;0;0;0
+        ELECEN1;Circuits 1;0;0;1;0;0;0;0;0;0;0;1;0;0
+        LBYEC2D;Circuits 1 Laboratory;0;1;0;0;0;0;0;0;0;1;0;0;0
+        ELECEN2;Circuits 2;1;0;0;0;0;0;0;1;0;0;0;0;0
+        LBYEC2F;Circuits 2 Laboratory;0;1;0;0;0;0;1;0;0;0;0;0;0
+        TRONIC1;Electronic Devices and Circuits;0;0;0;0;0;1;0;0;1;0;0;0;1
+        LBYEC2G;Electronic Devices and Circuits Laboratory;0;1;1;2;0;0;0;0;0;0;0;0;0
+        MATHADV;Advanced Engineering Mathematics for ECE;1;0;0;0;0;0;1;0;0;0;0;0;0
+        LBYEC2H;Advanced Engineering Mathematics for ECE Laboratory;0;0;0;0;0;0;1;0;1;0;0;0;0
+        CIRLOGI;Logic Circuits and Switching Theory;0;0;0;0;1;0;0;1;0;1;0;0;0
+        LBYEC2I;Logic Circuits and Switching Theory Laboratory;0;0;0;0;0;0;0;0;1;0;1;0;0
+        ELECMG1;Elecromagnetics;1;0;0;0;0;0;1;0;0;1;0;0;0
+        TRONIC2;Electronic Circuit Analysis and Design;1;0;0;0;1;0;0;0;0;0;0;0;1
+        LBYEC2J;Electronic Circuit Analysis and Design Laboratory;0;0;0;0;0;1;0;0;0;0;0;0;1
+        FEECONS;Feedback and Control Systems;2;0;0;2;1;0;0;0;0;0;0;0;0
+        LBYEC3F;Feedback and Control Systems Laboratory;0;0;1;0;0;1;0;0;0;0;1;0;0
+        COCIMIC;Microprocessor and Microcontrol Systems and Design;0;0;0;0;1;0;0;1;0;1;0;0;0
+        LBYEC3L;Microprocessor and Microcontrol Systems and Design Laboratory;0;0;0;2;0;0;0;0;0;0;2;1;0
+        COMMANA;Principles of Communication Systems;0;0;0;0;0;0;0;0;2;2;0;0;1
+        LBYEC3D;Principles of Communication Systems Laboratory;0;2;0;0;0;0;0;0;0;1;1;0;0
+        SIGDISC;Signals, Spectra and Signal Processing;2;0;0;0;0;0;2;0;0;0;0;0;0
+        LBYEC4A;Signals, Spectra and Signal Processing Laboratory;0;2;0;0;0;0;0;0;2;0;0;1;0
+        LAWSECE;ECE Laws, Contracts, Ethics, Standards and Safety;0;0;0;0;0;2;0;0;0;0;0;0;0
+        DIGCOMT;Modulation and Coding Techniques;0;0;0;0;0;0;2;0;2;0;0;0;0
+        LBYEC3E;Modulation and Coding Techniques Laboratory;0;2;0;0;0;0;0;0;0;2;0;2;0
+        MTTHECE;Methods of Research for ECE;0;0;2;0;2;0;0;0;0;0;2;0;0
+        TRONIC3;Electronic Systems and Design;0;0;0;0;0;0;0;2;0;2;0;0;2
+        LBYEC3K;Electronic System and Design Laboratory;0;0;1;2;0;0;0;1;0;0;0;0;0
+        MIXIGEL;Mixed Signal Electronics;0;0;0;0;0;0;2;0;2;0;0;0;0
+        LBYEC3J;Mixed Signal Electronics Laboratory;0;0;0;0;0;0;2;0;0;0;0;0;2
+        LBYEC3G;Digital Systems Design Laboratory;0;0;0;0;0;0;0;2;0;0;2;0;0
+        LBYEC3H;Analog Systems Design Laboratory;0;0;2;0;0;0;0;2;0;0;0;0;0
+        TRANSIL;Transmission of Signals;2;0;0;0;0;0;0;0;0;2;0;0;0
+        LBYEC3I;Transmission of Signals Laboratory;0;0;0;0;0;2;0;0;0;0;2;0;0
+        TSSEC1A;ECE Project 1;0;0;2;0;2;0;0;0;0;0;2;2;0
+        MACTRAN;Energy Conversion;2;0;0;0;0;0;0;0;0;2;0;0;0
+        LBYEC4D;Energy Conversion Laboratory;0;2;0;0;0;0;0;2;0;0;0;0;0
+        SEMSECE;Seminars and Colloqium for ECE;0;0;0;0;0;0;0;0;3;3;0;0;0`;
+      } else if (course === 'CPE') {
+        tableData = `Course;Course Description;A;B;C;D;E;F;G;H;I;J;K;L
+        DISCRMT;Discrete Mathematics;1;0;0;0;1;0;0;0;0;0;0;0
+        DATSRAL;Data Structures and Algorithms Lecture;1;0;0;0;1;0;0;0;0;0;0;0
+        LBYCPA2;Data Structures and Algorithms Laboratory;0;1;0;0;0;0;1;0;0;0;1;0
+        FUNDCKT;Fundamentals of Electrical Circuits Lecture;1;0;0;0;1;0;0;0;0;0;0;0
+        LBYEC2M;Fundamentals of Electrical Circuits Laboratory;0;1;0;0;0;0;1;0;0;0;0;0
+        MICPROS;Microprocessors Lecture;0;0;2;0;2;0;0;0;0;0;0;0
+        LBYCPA3;Microprocessors Laboratory;0;3;2;0;0;0;3;0;0;0;2;0
+        LBYCPB3;Computer Engineering Drafting and Design Laboratory;0;0;0;0;0;0;2;0;0;0;2;0
+        REMETHS;Methods of Research;0;0;2;0;0;0;0;2;2;0;0;0
+        FDCNSYS;Feedback and Control Systems;2;0;0;0;2;0;0;0;0;0;0;0
+        LBYCPC3;Feedback and Control System Laboratory;0;2;0;0;0;0;0;0;0;0;2;0
+        EMERTEC;Emerging Technologies in CpE;0;0;0;0;0;0;0;0;1;2;3;0
+        THSCP4B;CpE Practice and Design 2;0;0;0;2;0;0;0;0;0;0;3;2
+        DSIGPRO;Digital Signal Processing Lecture;3;0;3;0;3;0;0;0;0;0;0;0
+        LBYCPA4;Digital Signal Processing Laboratory;0;0;3;0;3;0;0;0;0;0;0;0
+        CONETSC;Computer Networks and Security Lecture;0;0;0;0;2;2;0;0;0;0;0;0
+        LBYCPB4;Computer Networks and Security Laboratory;0;3;0;0;0;0;0;0;0;0;0;0
+        CPECAPS;Operational Technologies;0;0;0;3;0;0;0;3;0;0;0;2
+        COEDISC;Computer Engineering as a Discipline;0;0;0;0;0;1;0;1;0;1;0;0
+        PROLOGI;Programming Logic and Design Lecture;1;0;0;0;0;0;0;0;0;0;0;0
+        LBYCPA1;Programming Logic and Design Laboratory;0;1;0;0;0;0;1;0;0;0;0;0
+        LBYEC2A;Computer Fundamentals and Programming 1;0;0;0;1;0;0;0;0;0;0;1;0
+        NUMMETS;Numerical Methods;2;0;0;0;1;0;0;0;0;0;0;0
+        FUNDLEC;Fundamentals of Electronic Circuits Lecture;1;0;0;0;0;0;0;0;0;0;0;0
+        LBYCPC2;Fundamentals of Electronic Circuits Laboratory;0;1;0;0;0;0;1;0;0;0;3;0
+        SOFDESG;Software Design Lecture;0;0;0;0;0;0;0;0;0;2;0;0
+        LBYCPD2;Software Design Laboratory;0;0;0;0;0;0;2;0;0;0;2;0
+        CSYSARC;Computer Architecture and Organization Lecture;3;0;2;0;2;0;0;0;0;0;0;0
+        LBYCPD3;Computer Architecture and Organization Laboratory;0;3;2;0;0;0;3;0;0;0;0;0
+        EMBDSYS;Embedded Systems Lecture;0;0;3;0;0;0;0;2;0;0;0;0
+        LBYCPM3;Embedded Systems Laboratory;0;2;3;0;0;0;3;0;0;0;0;0
+        CPECOG1;CPE Elective 1 Lecture;0;0;0;0;3;0;0;0;0;0;0;0
+        LBYCPF3;CPE Elective 1 Laboratory;0;2;0;0;0;0;0;0;0;0;3;0
+        PRCGECP;Practicum for CpE;0;0;0;3;0;3;3;0;0;0;0;3
+        LBYEC2B;Computer Fundamentals and Programming 2;0;0;0;1;0;0;0;0;0;0;0;0
+        LBYCPEI;Object Oriented Programming Laboratory;0;1;0;0;0;0;0;0;0;0;0;0
+        LOGDSGN;Logic Circuits and Design Lecture;2;0;0;0;1;0;0;0;0;0;0;0
+        LBYCPG4;Logic Circuits and Design Laboratory;0;2;0;0;0;0;2;0;0;0;2;0
+        OPESSYS;Operating Systems;2;0;0;0;0;2;0;0;0;2;0;0
+        LBYCPO1;Operating Systems Laboratory;0;0;0;0;0;0;2;0;0;0;0;0
+        LBYCPF2;Introduction to HDL Laboratory;0;0;1;0;0;0;2;0;0;0;1;0
+        MXSIGFN;Fundamentals of Mixed Signals and Sensors;3;0;0;0;3;0;0;0;0;0;0;0
+        CPECOG2;CpE Elective 2 Lecture;0;0;0;0;3;0;0;0;0;0;0;0
+        LBYCPH3;CpE Elective 2 Laboratory;0;3;0;0;0;0;0;0;0;0;3;0
+        OCHESAF;Basic Occupational Health and Safety;0;0;0;0;0;2;0;0;0;1;0;0
+        CPEPRAC;CpE Laws and Professional Practice;0;0;0;0;0;3;0;0;0;3;0;0
+        THSCP4A;CpE Practice and Design 1;0;2;1;2;0;0;0;2;0;0;0;1
+        LBYEC3B;Intelligent Systems for Engineering;3;2;0;0;0;0;0;0;0;0;0;0
+        THSCP4C;CpE Practice and Design 3;0;3;3;3;0;0;3;3;3;0;0;3
+        CPECOG3;CpE Elective 3 Lecture;0;0;0;0;3;0;0;0;0;0;0;0
+        LBYCPC4;CpE Elective 3 Laboratory;0;3;0;0;0;0;0;0;0;0;3;0
+        CPETRIP;Seminars and Field Trips for CpE;0;0;0;0;0;0;0;0;3;3;0;0`;
+      } else if (course === 'Ge') {
+        tableData = `Course;Course Title;A;B;C;D;E;F;G;H;I;J;K;L
+        GEARTAP;Art Appreciation;o;o;o;o;o;o;o;A;o;o;o;o
+        GELECAH;Arts and Humanities;o;o;o;o;o;o;o;A;o;o;o;o
+        BASCHEM;Basic Chemistry;A;o;o;o;o;o;o;o;o;o;o;o
+        BASPHYS;Basic Physics;A;o;o;o;o;o;o;o;o;o;o;o
+        ENGCHEM;Chemistry for Engineers;A;o;o;o;o;o;o;o;o;o;o;o
+        LBYCH1;Chemistry for Engineers Laboratory;o;A;o;o;o;o;o;o;o;o;o;o
+        LBYME1C;Computer Aided Drafting  (CAD) for ECE and CPE;o;o;o;o;o;o;o;o;o;o;A;o
+        LBYEC2A;Computer Fundamentals and Programming 1;A;o;o;o;o;o;o;o;o;o;o;o
+        LBYEC2B;Computer Fundamentals and Programming 2;A;o;o;o;o;o;o;o;o;o;o;o
+        CALENG1;Differential Calculus;A;o;o;o;o;o;o;o;o;o;o;o
+        CALENG3;Differential Equations;A;o;o;o;o;o;o;o;o;o;o;o
+        LCENWRD;Encountering the Word in the World;o;o;o;o;o;o;o;o;A;o;o;o
+        DATAENG;Engineering Data Analysis;A;o;o;o;o;o;o;o;o;o;o;o
+        ECNOMCC;Engineering Economics for ECE;A;o;o;o;o;o;o;o;o;o;o;o
+        ENGMANA;Engineering Management;o;o;o;o;o;o;o;o;o;o;o;A
+        ENGENVI;Environmental Science and Engineering;A;o;o;o;o;o;o;o;o;o;o;o
+        GEETHIC;Ethics;o;o;o;o;o;A;o;o;o;o;o;o
+        LCFAITH;Faith Worth Living;o;o;o;o;o;o;o;o;A;o;o;o
+        FNDSTAT;Foundation  course in Statistics;;o;o;o;o;o;o;o;o;o;o;o
+        FNDMATH;Foundation course in  Math;A;o;o;o;o;o;o;o;o;o;o;o
+        CALENG2;Integral Calculus;A;o;o;o;o;o;o;o;o;o;o;o
+        LASARE1;Lasallian Recollection 1;o;o;o;o;o;o;o;o;A;o;o;o
+        LASARE2;Lasallian Recollection 2;o;o;o;o;o;o;o;o;A;o;o;o
+        LASARE3;Lasallian Recollection 3;o;o;o;o;o;o;o;o;A;o;o;o
+        LCLSONE;Lasallian Studies 1;o;o;o;o;o;o;o;o;A;o;o;o
+        LCLSTWO;Lasallian Studies 2;o;o;o;o;o;o;o;o;A;o;o;o
+        LCLSTRI;Lasallian Studies 3;o;o;o;o;o;o;o;o;A;o;o;o
+        GERIZAL;Life and Works of Rizal;o;o;o;o;o;o;o;o;A;o;o;o
+        GEMATMW;Mathematics in the Modern World;A;o;o;o;o;o;o;o;o;o;o;o
+        NSTPCW1;National Service Training Program 1;o;o;o;o;o;o;o;o;A;o;o;o
+        NSTPCW2;National Service Training Program 2;o;o;o;o;o;o;o;o;A;o;o;o
+        NSTP101;National Sevice Training Program-General Orientation;o;o;o;o;o;o;o;o;A;o;o;o
+        GEFTWEL;Physical Fitness and Wellness;o;o;o;o;o;o;o;o;A;o;o;o
+        GEDANCE;Physical Fitness and Wellness in Dance;o;o;o;o;o;o;o;o;A;o;o;o
+        GESPORT;Physical Fitness and Wellness in Individual Sports;o;o;o;o;o;o;o;o;A;o;o;o
+        GETEAMS;Physical Fitness and Wellness in Teams Sport;o;o;o;o;o;o;o;o;A;o;o;o
+        ENGPHS2;Physics 2;A;o;o;o;o;o;o;o;o;o;o;o
+        LBYPH1B;Physics 2 Laboratory;o;A;o;o;o;o;o;o;o;o;o;o
+        ENGPHYS;Physics for Engineers;A;o;o;o;o;o;o;o;o;o;o;o
+        LBYPH1A;Physics for Engineers Laboratory;o;A;o;o;o;o;o;o;o;o;o;o
+        GEPCOMM;Purposive Communications;o;o;o;o;o;o;A;o;o;o;o;o
+        GERPHIS;Readings in the Philippine History;o;o;o;o;o;o;o;A;o;o;o;o
+        GELECST;Science and Technology;o;o;A;o;o;o;o;o;o;o;o;o
+        GESTSOC;Science, Technology and Society;o;o;A;o;o;o;o;o;o;o;o;o
+        GELECSP;Social Science and Philosophy;o;o;o;o;o;o;o;o;A;o;o;o
+        SAS1000;Student Affairs Series 1;o;o;o;o;o;o;o;o;A;o;o;o
+        SAS2000;Student Affairs Series 2;o;o;o;o;o;o;o;o;A;o;o;o
+        SAS3000;Student Affairs Series 3;o;o;o;o;o;o;o;o;A;o;o;o
+        ENGTREP;Technopreneurship 101;o;o;o;o;o;o;o;o;A;o;o;o
+        GEWORLD;The Contemporary World;o;o;o;o;o;o;o;o;o;A;o;o
+        LCASEAN;The Filipino and ASEAN;o;o;o;o;o;o;o;o;A;o;o;o`;
+      }
+
+      const table = createTable(tableData);
+      const tableContainer = document.getElementById("container-fluid-2");
+      tableContainer.innerHTML = '';
+      tableContainer.appendChild(table);
+    }
+  </script>
+</body>
+</html>
